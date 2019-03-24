@@ -63,12 +63,9 @@ let json = {
 
 let tempjson = json;
 while(true){
-  
   for( i in tempjson){
-    while(ammountofchildren(json[i])){
-      k
-    }
-    
+    //while(ammountofchildren(json[i]))
+    console.log(json[i]);
   }
   break;
 
