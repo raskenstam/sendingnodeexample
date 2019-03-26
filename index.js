@@ -60,19 +60,42 @@ let json = {
 // todo# Get the complete code and make it parse to a html with help with jsontohtml or from scatch
 // todo# Get a post request with json code that instantly generates html from it.
 
+//mostimportanttodo delete and add to array
 
 let tempjson = json;
-while(true){
-  
-  for( i in tempjson){
-    while(ammountofchildren(json[i])){
-      k
-    }
+console.log(ammountofchildren(tempjson));
+  function mainmetod(){
+    while(ammountofchildren(tempjson) >0){
+      
+      for(i in tempjson){
+        console.log("temaa" + ammountofchildren[tempjson]);
+        console.log("temp" + tempjson[i]);
+        if(ammountofchildren(tempjson[i])>0){
+          tempjson = tempjson[i];
+        }
+        else{
+          tempjson = json;
+        }
+        
+        
+        console.log("tempppp" + ammountofchildren[tempjson]);
+      }
     
+      
+    }
+    if(ammountofchildren[tempjson]==0){
+      
+      
+    }
   }
-  break;
 
-}
+ 
+  mainmetod();
+
+  
+  
+
+
 function ammountofchildren(a) {
   var b = 0;
   for(var i in a){
@@ -91,7 +114,5 @@ function addtoarray(tag,id,parrent,html){
   }
   jsarray.push(a);
 }
-addtoarray("a","b","c","d");
-console.log(jsarray);
 
 
