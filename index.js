@@ -1,11 +1,7 @@
-
-
-
-
 var fs = require('fs');
 let string = " ";
 let jsarray = [];
-let json = {data:{
+let json = {
   "tag": "html",
   "id": 1,
   "children": [{
@@ -54,68 +50,130 @@ let json = {data:{
     }]
   }]
 }
+var currenthtmlstring;
+console.log(dasdasd);
+console.log("/\r\n\t/");
+var howdeep = 0;
+function test(x) {
+  howdeep++;
+  console.log("howdeep" + howdeep + " " + x);
+  var gotchild = false;
+  var gotid = false;
+  for (i in x) {
+    if (i == "children") {
+      gotchild = true;
+
+      for (b in x.children) {
+
+        if (x.children[b].id > 0) {
+
+          if (ammountofchildren(x.children[b].children) > 0) {
+            //incursion
+            console.log("array " + x.children[b].tag, x.children[b].id, x.children[b].parent, x.children[b].html);
+            test(x.children[b]);
+
+          }
+          else {
+
+            console.log("x.children = " + x.children + "x.children[b].id " + x.children[b].id);
+            console.log("array " + x.children[b].tag, x.children[b].id, x.children[b].parent, x.children[b].html);
+            //means that its the end of the line
+            addtoarray(x.children[b].tag, x.children[b].id, x.children[b].parent, x.children[b].html);
+          }
+
+        }
+
+
+
+      }
+    }
+    if (i == "id") {
+      gotid = true;
+    }
+
+  }
+
+  if (gotid == true) {
+    addtoarray(x.tag, x.id, x.parent, x.html);
+    console.log("addtoarray");
+
+  }
+
+
+}
+test(json);
+for (xd in jsarray) {
+  console.log("test" + jsarray[xd].id + " " + jsarray[xd].tag);
 }
 
 
-var usedids=[];
-//use delet.jsonpath to delet the html without a child and add its variable in an array with all its tag and ids
-// todo# creat a method that takes 4 vars tag id parrent and html,
-// todo# a loop that goes thro the json until theres no objects left and delet after added to array
-// todo# Get the complete code and make it parse to a html with help with jsontohtml or from scatch
-// todo# Get a post request with json code that instantly generates html from it.
-//option 1 stringify and find the id and delet it the jsonify back
-//insted of removing add the id to an array and check if its been used and change code to act on ammount of children that got no id already taken
-
-//mostimportanttodo delete and add to array
 /*
-  if(nochildren)
-  else(godeeper)
-
-  fucntion godeeper
-    stillgotchildren
+  make the code not count the children thats already been added to the array
 
 */
-
 let tempjson = json;
-
-
-  for(i in tempjson){
-    console.log("asd"+tempjson[i]);
-    console.log(ammountofchildren(tempjson));
-  }
- 
-console.log("latetestvar"+tempjson)
-
-console.log(tempjson.data.children[0].id);
-
+console.log(tempjson.children[0].children[0].id);
 function mainmetod(x) {
-  for(i in tempjson){
-    console.log("asd");
-    if(true){
+  for (i in x) {
+
+    console.log("ddd" + x[i] + i + x);
+    if (ammountofchildren(x[i]) > 0) {
+      console.log("cont" + x[i]);
+      mainmetod(x[i].children);
 
     }
-    mainmetod(tempjson);
+    else {
+      console.log("end" + x[i] + i + x);
+    }
+
   }
-  
+
 }
 //mainmetod(tempjson);
 function ammountofchildren(a) {
   var b = 0;
   for (var i in a) {
-
-     
-      b++;
-    
-
+    b++;
   }
   return b;
 }
-
 function addtoarray(tag, id, parrent, html) {
   var a = {
     tag: tag, id: id, parent: parrent, html: html
   }
   jsarray.push(a);
 }
+function maxchildren(){
+  var highestnest= 0;
+  for(i in jsarray){
+    if(jsarray[i].parrent>highestnest){
+      highestnest = jsarray[i].parrent;
+    }
+  }
+}
+function howmanygotparrent(x) {
+  var a = 0;
+  for (var i in jsarray) {
+    if(jsarray[i].parrent==x){
+          a++;
+    }
+
+  }
+  return a;
+}
+//check for with and depth and add out } accordingly
+function createjson(currentid) {
+  while (checkifarraygotchildren() > 0) {
+    for (var i in jsarray) {
+        if(jsarray[i].id==currentid){
+          if(howmanygotparrent==0){
+            //placeout}
+          }
+          
+        }
+    }
+  }
+}
+
 
 
